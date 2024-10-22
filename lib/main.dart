@@ -53,15 +53,17 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'Coffee Shop',
         theme: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(210, 111, 78, 55),
-          secondary:
-              const Color.fromARGB(210, 236, 177, 118), //rgb(236, 177, 118)
-        )),
-        home: (FirebaseAuth.instance.currentUser != null &&
-                FirebaseAuth.instance.currentUser!.emailVerified)
-            ? const MainScreen()
-            : const Login(),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(210, 111, 78, 55),
+            secondary: const Color.fromARGB(210, 236, 177, 118),
+            tertiary: const Color.fromARGB(210, 166, 123, 91), //rgb(166, 123, 91)
+          ),
+        ),
+        home: const MainScreen(),
+        //(FirebaseAuth.instance.currentUser != null &&
+        //         FirebaseAuth.instance.currentUser!.emailVerified)
+        //     ? const MainScreen()
+        //     : const Login(),
         routes: {
           "signUp": (context) => const SignUp(),
           "Login": (context) => const Login(),

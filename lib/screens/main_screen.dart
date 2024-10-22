@@ -89,13 +89,14 @@ class _MainScreenState extends State<MainScreen> {
             ),
             const SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CardItem(),
-                  CardItem(),
-                  CardItem(),
-                  CardItem(),
-                  CardItem()
+                  CardItem(coffeeName: 'Latte', coffeePrice: '5.5', coffeeImgPath: 'images/latte.jpg',),
+                  // CardItem(),
+                  // CardItem(),
+                  // CardItem(),
+                  // CardItem()
                 ],
               ),
             ),

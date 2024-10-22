@@ -16,8 +16,7 @@ class _LoginState extends State<Login> {
   final _password = TextEditingController();
   final formState = GlobalKey<FormState>();
   bool _isPass = true;
-  var test = "hello from new branch";
-  var test2 = "Iam here";
+  
   @override
   void dispose() {
     super.dispose();
