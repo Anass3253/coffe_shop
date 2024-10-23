@@ -1,21 +1,24 @@
+import 'package:app/providers/coffee_provider.dart';
 import 'package:app/widgets/card_item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  ConsumerState<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends ConsumerState<MainScreen> {
   final _searchTxtController = TextEditingController();
 
   _onSearchBtn() {}
 
   @override
   Widget build(BuildContext context) {
+    final coffeeList = ref.watch(coffeeProvider);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -89,9 +92,11 @@ class _MainScreenState extends State<MainScreen> {
             ),
             const SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Column(
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  CardItem(coffeeName: 'Latte', coffeePrice: '5.5', coffeeImgPath: 'images/latte.jpg',),
+                  CardItem(coffeeName: 'Latte', coffeePrice: '5.5', coffeeImgPath: 'images/latte.jpg',),
                   CardItem(coffeeName: 'Latte', coffeePrice: '5.5', coffeeImgPath: 'images/latte.jpg',),
                   // CardItem(),
                   // CardItem(),
