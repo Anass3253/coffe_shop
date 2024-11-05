@@ -41,6 +41,7 @@ dependencies:
   cloud_firestore: ^5.4.4
   transparent_image: ^2.0.1
   flutter_riverpod: ^2.6.1
+  flutter_dotenv: ^5.2.1
   
 dev_dependencies:
   flutter_test:

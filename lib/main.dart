@@ -4,14 +4,21 @@ import 'package:app/screens/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -25,22 +32,11 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     FirebaseAuth.instance.idTokenChanges().listen((User? user) {
-      if (FirebaseAuth.instance.currentUser != null &&
-          FirebaseAuth.instance.currentUser!.emailVerified) {
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   const SnackBar(
-        //     content: Text("See you later!"),
-        //   ),
-        // );
+      if (user != null && user.emailVerified) {
         print('User signed in!');
-      } else if (!FirebaseAuth.instance.currentUser!.emailVerified) {
-        print('Wating for verification!');
+      } else if (user != null && !user.emailVerified) {
+        print('Waiting for verification!');
       } else {
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   const SnackBar(
-        //     content: Text("Welcome Back!"),
-        //   ),
-        // );
         print('User is currently signed out!');
       }
     });
@@ -56,14 +52,14 @@ class _MyAppState extends State<MyApp> {
           colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromARGB(210, 111, 78, 55),
             secondary: const Color.fromARGB(210, 236, 177, 118),
-            tertiary: const Color.fromARGB(210, 166, 123, 91), //rgb(166, 123, 91)
+            tertiary:
+                const Color.fromARGB(210, 166, 123, 91), //rgb(166, 123, 91)
           ),
         ),
-        home: const MainScreen(),
-        //(FirebaseAuth.instance.currentUser != null &&
-        //         FirebaseAuth.instance.currentUser!.emailVerified)
-        //     ? const MainScreen()
-        //     : const Login(),
+        home: (FirebaseAuth.instance.currentUser != null &&
+                FirebaseAuth.instance.currentUser!.emailVerified)
+            ? const MainScreen()
+            : const Login(),
         routes: {
           "signUp": (context) => const SignUp(),
           "Login": (context) => const Login(),
